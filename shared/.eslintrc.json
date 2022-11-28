@@ -1,0 +1,17 @@
+// 参照
+// https://qiita.com/taijusanagi/items/1ffc7fe6eac935cba83f
+{
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier"
+  ],
+  "rules": {
+    "no-console": [
+      "error",
+      {
+        "allow": ["warn", "error"]
+      }
+    ]
+  }
+}

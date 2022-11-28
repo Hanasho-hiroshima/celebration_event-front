@@ -1,0 +1,45 @@
+name: ALL CI
+
+on:
+  push:
+    paths:
+      - '**'
+
+env:
+  YARN_CACHE_FOLDER: .cache/yarn
+  TZ: Asia/Tokyo
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '18.17.2'
+      - uses: actions/cache@v2
+        with:
+          path: ${YARN_CACHE_FOLDER}
+          key: ${{ runner.os }}-yarn-cache-v1
+
+      - name: node version
+        run: node -v
+
+      - name: yarn install
+        run: yarn install --frozen-lockfile
+
+      - name: Run format check
+        run: yarn formatcheck
+
+      - name: Run eslint
+        run: yarn lint
+
+      # - name: Send slack notification
+      #   uses: 8398a7/action-slack@v3
+      #   with:
+      #     status: ${{ job.status }}
+      #     fields: repo,message,commit,author,action,eventName,ref,workflow,job,took
+      #   env:
+      #     SLACK

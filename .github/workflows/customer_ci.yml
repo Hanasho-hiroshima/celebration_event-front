@@ -1,0 +1,34 @@
+name: Customer CI
+
+on:
+  push:
+    paths:
+      - 'customer/**'
+      - 'shared/**'
+
+env:
+  YARN_CACHE_FOLDER: .cache/yarn
+  TZ: Asia/Tokyo
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '18.17.2'
+      - uses: actions/cache@v2
+        with:
+          path: ${YARN_CACHE_FOLDER}
+          key: ${{ runner.os }}-yarn-cache-v1
+
+      - name: node version
+        run: node -v
+
+      - name: yarn install
+        run: yarn install --frozen-lockfile
+
+      ## Storyshotのテスト追加したい

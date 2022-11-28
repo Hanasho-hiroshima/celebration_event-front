@@ -1,0 +1,9 @@
+// shredで定義しているeslintを参照
+{
+  "extends": ["next/core-web-vitals", "../shared/.eslintrc.json"],
+  "settings": {
+    "next": {
+      "rootDir": "company/"
+    }
+  }
+}
