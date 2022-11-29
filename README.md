@@ -44,14 +44,23 @@ vscode の setting.json を弄っても良いが、.vscode フォルダに作る
   // 保存時にauto fixさせる
   "editor.codeActionOnSave": {
     "source.fixAll.eslint": true
+    "source.fixAll.stylelint": true
   },
 
   // css周り
   "css.validate": false,
   "less.validate": false,
   "scss.validate": false,
-  "editor.codeActionsOnSave": {
-    "source.fixAll.stylelint": true
-  }
 }
 ```
+
+## MUI
+
+このプロジェクトは MUI(マテリアル UI)を使ってスタイリングしていく。
+正直、まだ理解が浅いので参考にしたサイトの URL を列挙する
+
+- https://mui.com/
+
+- https://qiita.com/hasehiro0828/items/ef1736e871b85b039212
+- https://thundermiracle.com/blog/2022-01-16-mui-styled-components-typescript/
+- https://zenn.dev/ttani/articles/next-materialui-setup
