@@ -44,14 +44,12 @@ vscode の setting.json を弄っても良いが、.vscode フォルダに作る
   // 保存時にauto fixさせる
   "editor.codeActionOnSave": {
     "source.fixAll.eslint": true
+    "source.fixAll.stylelint": true
   },
 
   // css周り
   "css.validate": false,
   "less.validate": false,
   "scss.validate": false,
-  "editor.codeActionsOnSave": {
-    "source.fixAll.stylelint": true
-  }
 }
 ```
