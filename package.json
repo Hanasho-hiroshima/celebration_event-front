@@ -14,7 +14,7 @@
     "customer": "yarn workspace celebration_event-front-customer",
     "co": "yarn company",
     "cu": "yarn customer",
-    "format": "prettier . --ignore-path .gitignore --write",
+    "format": "prettier --write '**/*.{js,ts,json,jsx,tsx,md,html,yml}'",
     "formatcheck": "prettier --check '**/*.{js,ts,json,jsx,tsx,md,html,yml}'",
     "lint": "eslint --ext .ts,.tsx . --ignore-path .gitignore"
   },
