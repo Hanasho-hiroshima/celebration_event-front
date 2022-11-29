@@ -53,3 +53,14 @@ vscode の setting.json を弄っても良いが、.vscode フォルダに作る
   "scss.validate": false,
 }
 ```
+
+## MUI
+
+このプロジェクトは MUI(マテリアル UI)を使ってスタイリングしていく。
+正直、まだ理解が浅いので参考にしたサイトの URL を列挙する
+
+- https://mui.com/
+
+- https://qiita.com/hasehiro0828/items/ef1736e871b85b039212
+- https://thundermiracle.com/blog/2022-01-16-mui-styled-components-typescript/
+- https://zenn.dev/ttani/articles/next-materialui-setup
