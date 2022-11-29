@@ -4,14 +4,28 @@
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
-    "prettier"
+    "prettier",
+    "plugin:storybook/recommended"
   ],
+  "plugins": ["@typescript-eslint", "unused-imports"],
   "rules": {
+    "no-shadow": "error",
     "no-console": [
       "error",
       {
         "allow": ["warn", "error"]
       }
+    ],
+    "unused-imports/no-unused-imports": "error",
+    "unused-imports/no-unused-vars": [
+      "warn",
+      {
+        "vars": "all",
+        "varsIgnorePattern": "^_",
+        "args": "after-used",
+        "argsIgnorePattern": "^_"
+      }
     ]
+    // "@typescript-eslint/explicit-function-return-type": "warn" 導入したいけど、きつそう
   }
 }

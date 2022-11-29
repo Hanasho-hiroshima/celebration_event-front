@@ -14,7 +14,7 @@
     "customer": "yarn workspace celebration_event-front-customer",
     "co": "yarn company",
     "cu": "yarn customer",
-    "format": "prettier . --ignore-path .gitignore --write",
+    "format": "prettier --write '**/*.{js,ts,json,jsx,tsx,md,html,yml}'",
     "formatcheck": "prettier --check '**/*.{js,ts,json,jsx,tsx,md,html,yml}'",
     "lint": "eslint --ext .ts,.tsx . --ignore-path .gitignore"
   },
@@ -23,6 +23,13 @@
     "@typescript-eslint/parser": "^5.44.0",
     "eslint": "^8.28.0",
     "eslint-config-prettier": "^8.5.0",
-    "prettier": "^2.8.0"
+    "eslint-plugin-unused-imports": "^2.0.0",
+    "prettier": "^2.8.0",
+    "stylelint": "^14.15.0",
+    "stylelint-config-idiomatic-order": "^9.0.0",
+    "stylelint-config-prettier": "^9.0.4",
+    "stylelint-config-standard": "^29.0.0",
+    "stylelint-config-standard-scss": "^6.1.0",
+    "stylelint-prettier": "^2.0.0"
   }
 }

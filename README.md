@@ -27,6 +27,7 @@ VSCode を使っている場合は以下のプラグインを入れて、以下�
 - Prettier
 - EditorConfig for VSCode
 - Code Spell Checker
+- Stylelint
 
 vscode の setting.json を弄っても良いが、.vscode フォルダに作ることでそのプロジェクトのみに反映される
 
@@ -44,5 +45,13 @@ vscode の setting.json を弄っても良いが、.vscode フォルダに作る
   "editor.codeActionOnSave": {
     "source.fixAll.eslint": true
   },
+
+  // css周り
+  "css.validate": false,
+  "less.validate": false,
+  "scss.validate": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.stylelint": true
+  }
 }
 ```
