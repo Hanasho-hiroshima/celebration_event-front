@@ -31,7 +31,7 @@ VSCode を使っている場合は以下のプラグインを入れて、以下�
 vscode の setting.json を弄っても良いが、.vscode フォルダに作ることでそのプロジェクトのみに反映される
 
 ```
-// .vscode/setting.json
+// .vscode/settings.json
 {
   // eslintを適用させる
   "eslint.validate": ["javascript", "typescript"],
