@@ -1,5 +1,5 @@
-import React, { FC } from 'react'
-import { DIRECTION_TYPE } from 'shared/constants/other'
+import { FC } from 'react'
+import { DIRECTION_TYPE } from '@shared/constants/other'
 import { InputRadioGroupProp } from './InputRadioGroupType'
 import Radio from '@mui/material/Radio'
 import RadioGroup from '@mui/material/RadioGroup'
@@ -8,7 +8,7 @@ import FormControlLabel from '@mui/material/FormControlLabel'
 export const InputRadioGroup: FC<InputRadioGroupProp> = (props) => {
   return (
     <RadioGroup
-      row={props.direction === DIRECTION_TYPE.Horizontal ? true : false}
+      row={props.direction === DIRECTION_TYPE.Horizontal}
       aria-labelledby="demo-row-radio-buttons-group-label"
       name="row-radio-buttons-group"
     >

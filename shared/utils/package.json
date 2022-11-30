@@ -1,0 +1,15 @@
+{
+  "name": "@shared/utils",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "license": "MIT",
+  "devDependencies": {
+    "tsd": "^0.25.0",
+    "typescript": "^4.9.3"
+  },
+  "dependencies": {
+    "@types/lodash-es": "^4.17.6",
+    "dayjs": "^1.11.6",
+    "lodash-es": "^4.17.21"
+  }
+}
