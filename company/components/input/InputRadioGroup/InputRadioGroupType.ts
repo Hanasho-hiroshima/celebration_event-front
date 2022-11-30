@@ -1,4 +1,4 @@
-import { DirectionType } from 'shared/constants/other'
+import { DirectionType } from '@shared/constants/other'
 type InputRadioGroupValue = number | string | boolean | null
 
 export type InputRadioGroupProp = {
