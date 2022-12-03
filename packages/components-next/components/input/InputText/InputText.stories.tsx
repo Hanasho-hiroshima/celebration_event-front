@@ -26,7 +26,7 @@ const Template: ComponentStory<typeof InputText> = (args) => {
   return <InputText {...args} value={text} onInputValue={onChangeText} />
 }
 
-export const Boolean = Template.bind({})
+export const Base = Template.bind({})
 
 export const Counter = Template.bind({})
 Counter.args = {
