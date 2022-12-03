@@ -1,64 +1,58 @@
-import React, { FC } from 'react'
+import React from 'react'
 import { DirectionType, DIRECTION_TYPE } from '@packs/constants/other'
 import FormGroup from '@mui/material/FormGroup'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Checkbox from '@mui/material/Checkbox'
 
-export type InputCheckGroupProp<T = any> = {
+export type InputCheckGroupProp<Item extends Record<string, any>> = {
   /** 値 */
   readonly value: (number | string)[]
   /** チェックリスト */
-  readonly items: T[]
+  readonly items: Item[]
   /** キーのプロパティ */
-  readonly itemValueKey: keyof T
+  readonly itemValueKey: keyof Item
   /** 値のプロパティ */
-  readonly itemLabelKey: keyof T
+  readonly itemLabelKey: keyof Item
   /** 必須可否 */
-  readonly required: boolean
+  readonly required?: boolean
   /** 無効フラグ */
   readonly disabled?: boolean
   /** 読み取り専用フラグ */
   readonly readonly?: boolean
   /** 方向 */
-  readonly direction: DirectionType
+  readonly direction?: DirectionType
   /** サイズ */
-  readonly size: 'small' | 'medium'
-  /** 変更関数 */
-  readonly onHandleChange: (value: number | string) => void
+  readonly size?: 'small' | 'medium'
+  /** チェック項目の選択時 */
+  readonly onSelectValue: (value: number | string) => void
 }
 
-export const InputCheckGroup: FC<InputCheckGroupProp> = (props) => {
-  const value = props.value || []
-  const items = props.items || []
-  const itemValueKey = props.itemValueKey || 'value'
-  const itemLabelKey = props.itemLabelKey || 'label'
-  const required = props.required || false
-  const disabled = props.disabled || false
-  const readonly = props.readonly || false
-  const direction = props.direction || DIRECTION_TYPE.Horizontal
-  const size = props.size || 'medium'
+export const InputCheckGroup = function <Item extends Record<string, any>>(
+  props: InputCheckGroupProp<Item>
+) {
+  const propDirection = props.direction || DIRECTION_TYPE.Horizontal
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    props.onHandleChange(event.target.value)
+    props.onSelectValue(event.target.value)
   }
 
   return (
-    <FormGroup row={direction === DIRECTION_TYPE.Horizontal}>
-      {items.map((item, index) => {
+    <FormGroup row={propDirection === DIRECTION_TYPE.Horizontal}>
+      {props.items.map((item, index) => {
         return (
           <FormControlLabel
             key={index}
             control={
               <Checkbox
-                disabled={disabled || item.disabled}
-                size={size}
-                required={required}
-                checked={value.includes(item[itemValueKey])}
-                onChange={readonly ? undefined : handleChange}
-                value={item[itemValueKey]}
+                disabled={props.disabled || item.disabled}
+                size={props.size}
+                required={props.required}
+                checked={props.value.includes(item[props.itemValueKey])}
+                onChange={props.readonly ? undefined : handleChange}
+                value={item[props.itemValueKey]}
               />
             }
-            label={item[itemLabelKey]}
+            label={item[props.itemLabelKey]}
           />
         )
       })}
