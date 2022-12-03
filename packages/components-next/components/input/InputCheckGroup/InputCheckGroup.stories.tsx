@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { ComponentStory, ComponentMeta } from '@storybook/react'
 
 import { InputCheckGroup } from './InputCheckGroup'
@@ -36,20 +36,34 @@ export default {
     items: ITEMS,
     itemLabelKey: 'label',
     itemValueKey: 'key',
-    modelValue: [],
   },
 } as ComponentMeta<typeof InputCheckGroup>
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: ComponentStory<typeof InputCheckGroup> = (args) => (
-  <InputCheckGroup {...args} />
-)
+const Template: ComponentStory<typeof InputCheckGroup> = (args) => {
+  const [values, setValues] = useState<(number | string)[]>(['train', 'car'])
+  const onChange = (changeValue: number | string) => {
+    if (values.includes(changeValue)) {
+      setValues(values.filter((value) => value !== changeValue))
+    } else {
+      const copyValues = [...values]
+      copyValues.push(changeValue)
+      setValues(copyValues)
+    }
+  }
+  return <InputCheckGroup {...args} value={values} onHandleChange={onChange} />
+}
 
 export const Base = Template.bind({})
 
 export const Disabled = Template.bind({})
 Disabled.args = {
   disabled: true,
+}
+
+export const Readonly = Template.bind({})
+Readonly.args = {
+  readonly: true,
 }
 
 export const Vertical = Template.bind({})

@@ -1,43 +1,57 @@
-import { FC } from 'react'
+import React, { FC } from 'react'
 import { DirectionType, DIRECTION_TYPE } from '@packs/constants/other'
 import Radio from '@mui/material/Radio'
 import RadioGroup from '@mui/material/RadioGroup'
 import FormControlLabel from '@mui/material/FormControlLabel'
 
-type InputRadioGroupValue = number | string | boolean | null
+export type InputRadioGroupValue = number | string | boolean | null
 
 export type InputRadioGroupProp = {
   /** 値 */
-  readonly modelValue: InputRadioGroupValue
+  readonly value: InputRadioGroupValue
   /** チェックリスト */
   readonly items: any[]
   /** キーのプロパティ */
-  readonly itemValueKey: string
+  readonly itemValueKey?: string
   /** 値のプロパティ */
-  readonly itemLabelKey: string
+  readonly itemLabelKey?: string
   /** 方向 */
-  readonly direction: DirectionType
-  /** 必須可否 */
-  readonly required: boolean
+  readonly direction?: DirectionType
   /** 活性フラグ */
-  readonly disabled: boolean
-  /** エラーメッセージ */
-  readonly errorMessages: string[]
+  readonly disabled?: boolean
+  /** 読み取り専用 */
+  readonly readonly?: boolean
+  /** 変更関数 */
+  readonly onHandleChange: (value: InputRadioGroupValue) => void
 }
 
 export const InputRadioGroup: FC<InputRadioGroupProp> = (props) => {
+  const value = props.value || null
+  const items = props.items || null
+  const itemValueKey = props.itemValueKey || 'value'
+  const itemLabelKey = props.itemLabelKey || 'label'
+  const direction = props.direction || DIRECTION_TYPE.Horizontal
+  const disabled = props.disabled || false
+  const readonly = props.readonly || false
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    props.onHandleChange(event.target.value)
+  }
+
   return (
     <RadioGroup
-      row={props.direction === DIRECTION_TYPE.Horizontal}
+      row={direction === DIRECTION_TYPE.Horizontal}
+      value={value}
       aria-labelledby="demo-row-radio-buttons-group-label"
+      onChange={readonly ? undefined : handleChange}
       name="row-radio-buttons-group"
     >
-      {props.items.map((item, index) => {
+      {items.map((item, index) => {
         return (
           <FormControlLabel
-            value={item[props.itemValueKey]}
-            label={item[props.itemLabelKey]}
-            disabled={item.disabled || props.disabled}
+            value={item[itemValueKey]}
+            label={item[itemLabelKey]}
+            disabled={item.disabled || disabled}
             control={<Radio />}
             key={index}
           />
@@ -45,16 +59,4 @@ export const InputRadioGroup: FC<InputRadioGroupProp> = (props) => {
       })}
     </RadioGroup>
   )
-}
-
-/** Propsの初期値設定 */
-InputRadioGroup.defaultProps = {
-  modelValue: null,
-  items: [],
-  itemValueKey: 'value',
-  itemLabelKey: 'label',
-  direction: DIRECTION_TYPE.Horizontal,
-  required: false,
-  disabled: false,
-  errorMessages: [],
 }

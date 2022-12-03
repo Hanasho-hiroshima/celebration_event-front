@@ -12,7 +12,9 @@
     "keyframes-name-pattern": null,
     "scss/at-mixin-pattern": null,
     "scss/dollar-variable-pattern": null,
-    "scss/percent-placeholder-pattern": null
+    "scss/percent-placeholder-pattern": null,
+    "value-list-comma-newline-after": null,
+    "declaration-colon-newline-after": null
   },
   "ignoreFiles": ["**/node_modules/**"]
 }
