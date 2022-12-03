@@ -66,12 +66,12 @@ export const InputText: FC<InputTextProp> = (props) => {
         disabled={props.disabled}
         InputProps={{
           readOnly: props.readonly,
-          startAdornment: (
+          startAdornment: props.prependNode && (
             <InputAdornment position="start">
               {props.prependNode}
             </InputAdornment>
           ),
-          endAdornment: (
+          endAdornment: props.appendNode && (
             <InputAdornment position="start">{props.appendNode}</InputAdornment>
           ),
         }}
