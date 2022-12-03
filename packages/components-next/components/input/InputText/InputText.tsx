@@ -1,7 +1,6 @@
 import React, { FC, ReactNode } from 'react'
 import TextField from '@mui/material/TextField'
-import { InputAdornment, Typography } from '@mui/material'
-import { Box } from '@mui/system'
+import { Box, InputAdornment, Typography } from '@mui/material'
 
 export type InputTextProp = {
   /** ID */
@@ -65,7 +64,7 @@ export const InputText: FC<InputTextProp> = (props) => {
         error={props.error}
         helperText={props.errorMessage}
         disabled={props.disabled}
-        inputProps={{
+        InputProps={{
           readOnly: props.readonly,
           startAdornment: (
             <InputAdornment position="start">
