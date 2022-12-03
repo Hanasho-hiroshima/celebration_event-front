@@ -5,9 +5,9 @@
   "license": "MIT",
   "private": true,
   "workspaces": [
-    "shared/*",
     "company",
-    "customer"
+    "customer",
+    "packages/*"
   ],
   "scripts": {
     "company": "yarn workspace celebration_event-front-company",

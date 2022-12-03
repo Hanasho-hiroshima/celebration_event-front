@@ -4,7 +4,7 @@ on:
   push:
     paths:
       - 'customer/**'
-      - 'shared/**'
+      - 'packages/**'
 
 env:
   YARN_CACHE_FOLDER: .cache/yarn

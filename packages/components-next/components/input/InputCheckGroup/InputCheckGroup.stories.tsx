@@ -2,7 +2,7 @@ import React from 'react'
 import { ComponentStory, ComponentMeta } from '@storybook/react'
 
 import { InputCheckGroup } from './InputCheckGroup'
-import { DIRECTION_TYPE } from '@shared/constants/other'
+import { DIRECTION_TYPE } from '@packs/constants/other'
 
 const ITEMS = [
   {
