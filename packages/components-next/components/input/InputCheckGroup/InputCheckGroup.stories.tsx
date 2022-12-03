@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { ComponentStory, ComponentMeta } from '@storybook/react'
-
-import { InputCheckGroup } from './InputCheckGroup'
+import { action } from '@storybook/addon-actions'
+import { InputCheckGroup, InputCheckGroupProp } from './InputCheckGroup'
 import { DIRECTION_TYPE } from '@packs/constants/other'
 
 const ITEMS = [
@@ -27,21 +27,29 @@ const ITEMS = [
   },
 ]
 
+const createProps = function <Item extends Record<string, any>>(
+  props: InputCheckGroupProp<Item>
+) {
+  return props
+}
+
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
   title: 'Input/CheckGroup',
   component: InputCheckGroup,
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
-  args: {
+  args: createProps({
+    value: ['train', 'car'] as (number | string)[],
     items: ITEMS,
     itemLabelKey: 'label',
     itemValueKey: 'key',
-  },
+    onSelectValue: action('onSelectValue'),
+  }),
 } as ComponentMeta<typeof InputCheckGroup>
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 const Template: ComponentStory<typeof InputCheckGroup> = (args) => {
-  const [values, setValues] = useState<(number | string)[]>(['train', 'car'])
+  const [values, setValues] = useState<(number | string)[]>([...args.value])
   const onChange = (changeValue: number | string) => {
     if (values.includes(changeValue)) {
       setValues(values.filter((value) => value !== changeValue))
@@ -51,7 +59,7 @@ const Template: ComponentStory<typeof InputCheckGroup> = (args) => {
       setValues(copyValues)
     }
   }
-  return <InputCheckGroup {...args} value={values} onHandleChange={onChange} />
+  return <InputCheckGroup {...args} value={values} onSelectValue={onChange} />
 }
 
 export const Base = Template.bind({})
