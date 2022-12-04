@@ -64,3 +64,4 @@ vscode の setting.json を弄っても良いが、.vscode フォルダに作る
 - https://qiita.com/hasehiro0828/items/ef1736e871b85b039212
 - https://thundermiracle.com/blog/2022-01-16-mui-styled-components-typescript/
 - https://zenn.dev/ttani/articles/next-materialui-setup
+- https://zenn.dev/tentel/articles/15377743ef9154
