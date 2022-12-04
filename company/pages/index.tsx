@@ -8,6 +8,7 @@ import type { NextPage } from 'next'
 import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
+import { Header } from '~/components/Header/Header'
 
 const Home: NextPage = () => {
   const [value, setValue] = useState<InputRadioGroupValue>(true)
@@ -24,6 +25,7 @@ const Home: NextPage = () => {
   ]
   return (
     <>
+      <Header />
       <Container maxWidth="lg">
         <Box
           sx={{
