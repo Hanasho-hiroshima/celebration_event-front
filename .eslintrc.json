@@ -16,7 +16,6 @@
         "allow": ["warn", "error"]
       }
     ],
-    "unused-imports/no-unused-imports": "error",
     "unused-imports/no-unused-vars": [
       "warn",
       {
@@ -26,9 +25,10 @@
         "argsIgnorePattern": "^_"
       }
     ],
-    "@typescript-eslint/no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "error",
     "@typescript-eslint/no-explicit-any": "off",
-    "@typescript-eslint/ban-ts-comment": "off"
+    "@typescript-eslint/ban-ts-comment": "off",
     // "@typescript-eslint/explicit-function-return-type": "warn" 導入したいけど、きつそう
+    "no-irregular-whitespace": ["error", { "skipRegExps": true }]
   }
 }

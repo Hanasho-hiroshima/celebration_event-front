@@ -1,0 +1,17 @@
+{
+  "name": "@packs/yup",
+  "version": "1.0.0",
+  "main": "indext.ts",
+  "license": "MIT",
+  "scripts": {
+    "test": "jest --passWithNoTests",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "dayjs": "^1.11.6",
+    "yup": "^0.32.11"
+  },
+  "devDependencies": {
+    "typescript": "4.9.3"
+  }
+}

@@ -1,0 +1,101 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`validation furigana no label   1`] = `true`;
+
+exports[`validation furigana no label null 1`] = `
+[
+  "this must be a \`string\` type, but the final value was: \`null\`.
+ If "null" is intended as an empty value be sure to mark the schema as \`.nullable()\`",
+]
+`;
+
+exports[`validation furigana no label undefined 1`] = `true`;
+
+exports[`validation furigana no label 　 1`] = `true`;
+
+exports[`validation furigana no label なまえ 1`] = `true`;
+
+exports[`validation furigana no label ナマエ 1`] = `true`;
+
+exports[`validation furigana no label ﾅﾏｴ 1`] = `
+[
+  "全角カタカナまたはひらがなで入力してください",
+]
+`;
+
+exports[`validation furigana with label   1`] = `true`;
+
+exports[`validation furigana with label null 1`] = `
+[
+  "フィールド must be a \`string\` type, but the final value was: \`null\`.
+ If "null" is intended as an empty value be sure to mark the schema as \`.nullable()\`",
+]
+`;
+
+exports[`validation furigana with label undefined 1`] = `true`;
+
+exports[`validation furigana with label 　 1`] = `true`;
+
+exports[`validation furigana with label なまえ 1`] = `true`;
+
+exports[`validation furigana with label ナマエ 1`] = `true`;
+
+exports[`validation furigana with label ﾅﾏｴ 1`] = `
+[
+  "フィールドは全角カタカナまたはひらがなで入力してください",
+]
+`;
+
+exports[`validation katakana no label   1`] = `true`;
+
+exports[`validation katakana no label TEXT 1`] = `
+[
+  "全角カタカナのみ入力してください",
+]
+`;
+
+exports[`validation katakana no label null 1`] = `
+[
+  "this must be a \`string\` type, but the final value was: \`null\`.
+ If "null" is intended as an empty value be sure to mark the schema as \`.nullable()\`",
+]
+`;
+
+exports[`validation katakana no label undefined 1`] = `true`;
+
+exports[`validation katakana no label 　 1`] = `true`;
+
+exports[`validation katakana no label テキスト 1`] = `true`;
+
+exports[`validation katakana no label ﾃｷｽﾄ 1`] = `
+[
+  "全角カタカナのみ入力してください",
+]
+`;
+
+exports[`validation katakana with label   1`] = `true`;
+
+exports[`validation katakana with label TEXT 1`] = `
+[
+  "フィールドは全角カタカナのみ入力してください",
+]
+`;
+
+exports[`validation katakana with label null 1`] = `
+[
+  "フィールド must be a \`string\` type, but the final value was: \`null\`.
+ If "null" is intended as an empty value be sure to mark the schema as \`.nullable()\`",
+]
+`;
+
+exports[`validation katakana with label undefined 1`] = `true`;
+
+exports[`validation katakana with label 　 1`] = `true`;
+
+exports[`validation katakana with label テキスト 1`] = `true`;
+
+exports[`validation katakana with label ﾃｷｽﾄ 1`] = `
+[
+  "フィールドは全角カタカナのみ入力してください",
+]
+`;

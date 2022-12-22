@@ -18,24 +18,15 @@ export const Header: FC = () => {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null)
   const [anchorElId, setAnchorElId] = useState<null | number>(null)
   const menuItems = getHeaderMenuItems()
-  const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
-  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null)
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElId(Number(event.currentTarget.getAttribute('data-id')))
     setAnchorElNav(event.currentTarget)
   }
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget)
-  }
 
   const handleCloseNavMenu = () => {
     setAnchorElId(null)
     setAnchorElNav(null)
-  }
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null)
   }
 
   return (
