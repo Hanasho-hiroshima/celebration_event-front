@@ -1,19 +1,83 @@
-import { FC } from 'react'
-import Avatar from '@mui/material/Avatar'
+import { FC, useState } from 'react'
 import Button from '@mui/material/Button'
-import CssBaseline from '@mui/material/CssBaseline'
-import TextField from '@mui/material/TextField'
 import Link from '@mui/material/Link'
 import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
-import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import { InputText } from '@packs/components-next/components/input/InputText/InputText'
+import * as yup from '@packs/yup'
+import { LoginFormInput, StaffDetail } from '~/types/staff/api'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { useAppDispatch } from '~/lib/redux/hooks'
+import { useMutateStaff } from '~/hooks/staff/useMutateStaff'
+import { useRouter } from 'next/router'
+import { useQueryStaff } from '~/hooks/staff/useQueryStaff'
+import { useQueryCompany } from '~/hooks/company/useQueryCompany'
+import { toast } from 'react-toastify'
+import { setStaff } from '~/slices/staff/staffSlice'
+import { setCompany } from '~/slices/company/companySlice'
+import { CompanyDetail } from '~/types/company/api'
+
+const schema = yup.object({
+  email: yup.string().required().email(),
+  password: yup.string().required(),
+})
 
 export const Login: FC = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginFormInput>({
+    resolver: yupResolver(schema),
+  })
+  const [email, setEmail] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
+  const dispatch = useAppDispatch()
+  const { login } = useMutateStaff()
+  const { fetchUser } = useQueryStaff()
+  const { fetchCompany } = useQueryCompany()
+  const router = useRouter()
+
+  const onChangeEmailText = (value: string) => {
+    setEmail(value)
+  }
+
+  const onChangePasswordText = (value: string) => {
+    setPassword(value)
+  }
+
+  const onSubmit: SubmitHandler<LoginFormInput> = async (data) => {
+    const { account_name } = router.query
+    if (account_name == null || typeof account_name === 'object') {
+      return
+    }
+    try {
+      await login(data.email, data.password, account_name)
+      let staffInfo: StaffDetail
+      let companyInfo: CompanyDetail
+      await Promise.all([
+        (async () => {
+          staffInfo = await fetchUser()
+          dispatch(setStaff(staffInfo))
+        })(),
+        async () => {
+          companyInfo = await fetchCompany(staffInfo.companyId)
+          dispatch(setCompany(companyInfo))
+        },
+      ])
+      toast.success('ログインに成功しました')
+    } catch (err) {
+      if (typeof err === 'string') {
+        toast.error(err)
+      }
+      return
+    }
+  }
+
   return (
     <Container component="main" maxWidth="xs">
-      <CssBaseline />
       <Box
         sx={{
           marginTop: 8,
@@ -22,38 +86,39 @@ export const Login: FC = () => {
           alignItems: 'center',
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign in
-        </Typography>
-        <Box component="form" noValidate sx={{ mt: 2 }}>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="メールアドレス"
-            name="email"
-            autoComplete="email"
-            autoFocus
+        <Box sx={{ mt: 2, width: 500 }}>
+          <InputText
+            value={email}
+            hookFormRegister={register('email', {
+              onChange(event) {
+                onChangeEmailText(event.target.value)
+              },
+            })}
+            type="text"
+            placeholder="メールアドレス"
+            sx={{
+              mb: 2,
+            }}
+            error={'email' in errors}
+            errorMessage={errors.email && errors.email.message}
           />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="パスワード"
+          <InputText
+            value={password}
             type="password"
-            id="password"
-            autoComplete="current-password"
+            placeholder="パスワード"
+            hookFormRegister={register('password', {
+              onChange(event) {
+                onChangePasswordText(event.target.value)
+              },
+            })}
+            error={'password' in errors}
+            errorMessage={errors.password && errors.password.message}
           />
           <Button
             type="submit"
-            fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
+            onClick={handleSubmit(onSubmit)}
           >
             ログイン
           </Button>
@@ -61,11 +126,6 @@ export const Login: FC = () => {
             <Grid item xs>
               <Link href="#" variant="body2">
                 パスワードを忘れた方
-              </Link>
-            </Grid>
-            <Grid item>
-              <Link href="#" variant="body2">
-                アカウント作成
               </Link>
             </Grid>
           </Grid>
