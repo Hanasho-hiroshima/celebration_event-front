@@ -1,3 +1,5 @@
+loadEnv(process.env.BUILD_ENV)
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -10,3 +12,14 @@ const nextConfig = {
 }
 
 module.exports = nextConfig
+
+function loadEnv(buildEnv = 'dev') {
+  const env = {
+    ...require(`./env/env.${buildEnv}.js`),
+    NEXT_PUBLIC_APP_ENV: buildEnv,
+  }
+
+  Object.entries(env).forEach(([key, value]) => {
+    process.env[key] = value
+  })
+}

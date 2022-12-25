@@ -9,11 +9,13 @@ import BaseSchema, { AnySchema } from 'yup/lib/schema'
 import type { TypeOf, Asserts } from 'yup/lib/util/types'
 import type { SchemaOf } from 'yup/lib/index'
 // ここから拡張
+import MixedSchema, { mixedCreate } from './lib/mixed/mixed'
 import StringSchema, { stringCreate } from './lib/string/string'
 
 export type { SchemaOf, TypeOf, Asserts, Asserts as InferType, AnySchema }
 
 export {
+  mixedCreate as mixed,
   booleanCreate as boolean,
   stringCreate as string,
   objectCreate as object,
@@ -22,4 +24,4 @@ export {
   ValidationError,
 }
 
-export { BaseSchema, BooleanSchema, StringSchema, ObjectSchema }
+export { MixedSchema, BaseSchema, BooleanSchema, StringSchema, ObjectSchema }

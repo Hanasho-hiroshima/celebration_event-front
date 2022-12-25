@@ -1,10 +1,10 @@
 import React, { FC, ReactNode } from 'react'
 import TextField from '@mui/material/TextField'
-import { Box, InputAdornment, Typography } from '@mui/material'
+import { Box, InputAdornment, SxProps, Typography } from '@mui/material'
 
 export type InputTextProp = {
   /** ID */
-  readonly id: string
+  readonly id?: string
   /** 値 */
   readonly value: string
   /** テキストエリアのタイプ属性 */
@@ -40,13 +40,20 @@ export type InputTextProp = {
   /** エラーメッセージ等の領域を消す */
   readonly hideDetails?: boolean
   /** テキスト入力時 */
-  readonly onInputValue: (value: string) => void
+  readonly onInputValue?: (value: string) => void
+  /** スタイル */
+  readonly sx?: SxProps
+  /** React Hook Form使う時 */
+  readonly hookFormRegister?: any
 }
 
 export const InputText: FC<InputTextProp> = (props) => {
   const propOutlined = props.outlined || true
 
   const inputText = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (props.onInputValue == null) {
+      return
+    }
     props.onInputValue(event.target.value)
   }
 
@@ -81,6 +88,8 @@ export const InputText: FC<InputTextProp> = (props) => {
         type={props.type || 'text'}
         fullWidth
         onChange={inputText}
+        sx={props.sx}
+        {...props.hookFormRegister}
       />
       {props.maxLength && (
         <Typography
