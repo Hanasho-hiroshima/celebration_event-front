@@ -1,4 +1,4 @@
-import React, { FC, ReactNode } from 'react'
+import React, { ChangeEvent, FC, ReactNode } from 'react'
 import TextField from '@mui/material/TextField'
 import { Box, InputAdornment, SxProps, Typography } from '@mui/material'
 
@@ -39,23 +39,14 @@ export type InputTextProp = {
   readonly isSuppressAutoTrim?: boolean
   /** エラーメッセージ等の領域を消す */
   readonly hideDetails?: boolean
-  /** テキスト入力時 */
-  readonly onInputValue?: (value: string) => void
   /** スタイル */
   readonly sx?: SxProps
-  /** React Hook Form使う時 */
-  readonly hookFormRegister?: any
+  /** 変更イベント */
+  readonly onChange: (event: ChangeEvent<HTMLInputElement>) => void
 }
 
 export const InputText: FC<InputTextProp> = (props) => {
   const propOutlined = props.outlined || true
-
-  const inputText = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (props.onInputValue == null) {
-      return
-    }
-    props.onInputValue(event.target.value)
-  }
 
   return (
     <Box
@@ -87,9 +78,8 @@ export const InputText: FC<InputTextProp> = (props) => {
         rows={props.rows}
         type={props.type || 'text'}
         fullWidth
-        onChange={inputText}
+        onChange={props.onChange}
         sx={props.sx}
-        {...props.hookFormRegister}
       />
       {props.maxLength && (
         <Typography

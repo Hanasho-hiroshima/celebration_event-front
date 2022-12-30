@@ -1,10 +1,10 @@
 import { FC, useState } from 'react'
-import Button from '@mui/material/Button'
+import LoadingButton from '@mui/lab/LoadingButton'
 import Link from '@mui/material/Link'
 import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
-import { SubmitHandler, useForm } from 'react-hook-form'
+import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { InputText } from '@packs/components-next/components/input/InputText/InputText'
 import * as yup from '@packs/yup'
 import { LoginFormInput, StaffDetail } from '~/types/staff/api'
@@ -26,27 +26,19 @@ const schema = yup.object({
 
 export const Login: FC = () => {
   const {
-    register,
     handleSubmit,
     formState: { errors },
+    control,
   } = useForm<LoginFormInput>({
     resolver: yupResolver(schema),
   })
-  const [email, setEmail] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
+
+  const [loading, setLoading] = useState<boolean>(false)
   const dispatch = useAppDispatch()
   const { login } = useMutateStaff()
   const { fetchUser } = useQueryStaff()
   const { fetchCompany } = useQueryCompany()
   const router = useRouter()
-
-  const onChangeEmailText = (value: string) => {
-    setEmail(value)
-  }
-
-  const onChangePasswordText = (value: string) => {
-    setPassword(value)
-  }
 
   const onSubmit: SubmitHandler<LoginFormInput> = async (data) => {
     const { account_name } = router.query
@@ -54,6 +46,7 @@ export const Login: FC = () => {
       return
     }
     try {
+      setLoading(true)
       await login(data.email, data.password, account_name)
       let staffInfo: StaffDetail
       let companyInfo: CompanyDetail
@@ -73,6 +66,8 @@ export const Login: FC = () => {
         toast.error(err)
       }
       return
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -87,41 +82,48 @@ export const Login: FC = () => {
         }}
       >
         <Box sx={{ mt: 2, width: 500 }}>
-          <InputText
-            value={email}
-            hookFormRegister={register('email', {
-              onChange(event) {
-                onChangeEmailText(event.target.value)
-              },
-            })}
-            type="text"
-            placeholder="メールアドレス"
-            sx={{
-              mb: 2,
-            }}
-            error={'email' in errors}
-            errorMessage={errors.email && errors.email.message}
+          <Controller
+            name="email"
+            control={control}
+            defaultValue={''}
+            render={({ field }) => (
+              <InputText
+                value={field.value}
+                type="text"
+                placeholder="メールアドレス"
+                sx={{
+                  mb: 2,
+                }}
+                onChange={(e) => field.onChange(e)}
+                error={'email' in errors}
+                errorMessage={errors.email && errors.email.message}
+              />
+            )}
           />
-          <InputText
-            value={password}
-            type="password"
-            placeholder="パスワード"
-            hookFormRegister={register('password', {
-              onChange(event) {
-                onChangePasswordText(event.target.value)
-              },
-            })}
-            error={'password' in errors}
-            errorMessage={errors.password && errors.password.message}
+          <Controller
+            name="password"
+            control={control}
+            defaultValue={''}
+            render={({ field }) => (
+              <InputText
+                value={field.value}
+                type="password"
+                placeholder="パスワード"
+                onChange={(e) => field.onChange(e)}
+                error={'password' in errors}
+                errorMessage={errors.password && errors.password.message}
+              />
+            )}
           />
-          <Button
+          <LoadingButton
             type="submit"
+            loading={loading}
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
             onClick={handleSubmit(onSubmit)}
           >
             ログイン
-          </Button>
+          </LoadingButton>
           <Grid container>
             <Grid item xs>
               <Link href="#" variant="body2">

@@ -1,5 +1,4 @@
 import { MenuItem, Select, SelectChangeEvent } from '@mui/material'
-import React from 'react'
 
 export type InputSelectProp<Item extends Record<string, any>> = {
   /** 値 */
@@ -22,8 +21,8 @@ export type InputSelectProp<Item extends Record<string, any>> = {
   readonly outlined?: boolean
   /** サイズ */
   readonly size?: 'small' | 'medium'
-  /** 選択時 */
-  readonly onSelectItem: (value: any) => void
+  /** 変更イベント */
+  readonly onChange: (e: SelectChangeEvent) => void
 }
 
 export const InputSelect = <Item extends Record<string, any>>(
@@ -31,15 +30,11 @@ export const InputSelect = <Item extends Record<string, any>>(
 ) => {
   const propOutlined = props.outlined || true
 
-  const handleChange = (event: SelectChangeEvent) => {
-    props.onSelectItem(event.target.value)
-  }
-
   return (
     <Select
       variant={propOutlined ? 'outlined' : 'standard'}
       value={props.value}
-      onChange={handleChange}
+      onChange={props.onChange}
       readOnly={props.required}
       disabled={props.disabled}
       placeholder={props.placeholder}

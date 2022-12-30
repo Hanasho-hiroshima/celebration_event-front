@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { ComponentStory, ComponentMeta } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 import { InputSelect, InputSelectProp } from './InputSelect'
+import { SelectChangeEvent } from '@mui/material'
 
 const ITEMS = [
   {
@@ -42,18 +43,18 @@ export default {
     items: ITEMS,
     itemLabelKey: 'label',
     itemValueKey: 'key',
-    onSelectItem: action('onSelectItem'),
+    onChange: action('onSelectItem'),
   }),
 } as ComponentMeta<typeof InputSelect>
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 const Template: ComponentStory<typeof InputSelect> = (args) => {
   const [values, setValues] = useState<number | string>(args.value)
-  const onChange = (changeValue: number | string): void => {
-    setValues(changeValue)
+  const onChange = (e: SelectChangeEvent): void => {
+    setValues(e.target.value)
   }
 
-  return <InputSelect {...args} value={values} onSelectItem={onChange} />
+  return <InputSelect {...args} value={values} onChange={onChange} />
 }
 
 export const Base = Template.bind({})

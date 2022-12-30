@@ -4,7 +4,7 @@ import { ToastContainer } from 'react-toastify'
 export const ConvertedToastContainer = () => {
   return (
     <ToastContainer
-      position="top-right"
+      position="top-center"
       autoClose={8000}
       style={{ width: 'auto' }}
       hideProgressBar={false}
