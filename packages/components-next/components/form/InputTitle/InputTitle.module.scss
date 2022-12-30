@@ -1,0 +1,16 @@
+@use "../../../assets/styles/variables" as *;
+
+.input_title {
+  display: flex;
+  margin-bottom: 12px;
+  align-items: center;
+  font-size: $baseFontSize;
+  font-weight: bold;
+}
+
+.aster {
+  display: inline;
+  padding-left: 2px;
+  font-weight: bold;
+  color: $errorColor;
+}

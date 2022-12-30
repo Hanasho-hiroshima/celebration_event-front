@@ -1,0 +1,16 @@
+@use "../../../assets/styles/variables" as *;
+
+.required_label {
+  display: inline-block;
+  margin-right: 4px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background-color: $primaryColor;
+  font-weight: bold;
+  font-size: $xXSmallFontSize;
+  line-height: 1.5;
+  color: $brightColor;
+  &._required {
+    background-color: $errorColor;
+  }
+}
