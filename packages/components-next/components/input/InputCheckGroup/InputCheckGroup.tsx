@@ -1,5 +1,4 @@
 import React, { ChangeEvent } from 'react'
-import { DirectionType, DIRECTION_TYPE } from '@packs/constants/other'
 import FormGroup from '@mui/material/FormGroup'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Checkbox from '@mui/material/Checkbox'
@@ -20,7 +19,7 @@ export type InputCheckGroupProp<Item extends Record<string, any>> = {
   /** 読み取り専用フラグ */
   readonly readonly?: boolean
   /** 方向 */
-  readonly direction?: DirectionType
+  readonly direction?: 'horizontal' | 'vertical'
   /** サイズ */
   readonly size?: 'small' | 'medium'
   /** 変更イベント */
@@ -30,10 +29,10 @@ export type InputCheckGroupProp<Item extends Record<string, any>> = {
 export const InputCheckGroup = function <Item extends Record<string, any>>(
   props: InputCheckGroupProp<Item>
 ) {
-  const propDirection = props.direction || DIRECTION_TYPE.Horizontal
+  const propDirection = props.direction || 'horizontal'
 
   return (
-    <FormGroup row={propDirection === DIRECTION_TYPE.Horizontal}>
+    <FormGroup row={propDirection === 'horizontal'}>
       {props.items.map((item, index) => {
         return (
           <FormControlLabel

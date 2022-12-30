@@ -9,7 +9,7 @@ export type InputTitleProps = {
   /** 必須可否 */
   readonly required?: boolean
   /** ツールチップ */
-  readonly tooltipText: string
+  readonly tooltipText?: string
   /** 必須情報の表示方法 */
   readonly requiredDisplayType: 'label' | 'aster'
 }

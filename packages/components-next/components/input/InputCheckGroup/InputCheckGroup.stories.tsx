@@ -2,7 +2,6 @@ import React, { ChangeEvent, useState } from 'react'
 import { ComponentStory, ComponentMeta } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 import { InputCheckGroup, InputCheckGroupProp } from './InputCheckGroup'
-import { DIRECTION_TYPE } from '@packs/constants/other'
 
 const ITEMS = [
   {
@@ -76,7 +75,7 @@ Readonly.args = {
 
 export const Vertical = Template.bind({})
 Vertical.args = {
-  direction: DIRECTION_TYPE.Vertical,
+  direction: 'vertical',
 }
 
 export const Small = Template.bind({})
