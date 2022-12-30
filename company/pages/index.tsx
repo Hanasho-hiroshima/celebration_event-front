@@ -1,9 +1,4 @@
-import { useState } from 'react'
 import { formatNumber } from '@packs/utils'
-import {
-  InputRadioGroup,
-  InputRadioGroupValue,
-} from '@packs/components-next/components/input/InputRadioGroup/InputRadioGroup'
 import type { NextPage } from 'next'
 import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
@@ -11,18 +6,6 @@ import Box from '@mui/material/Box'
 import { Header } from '~/components/Header/Header'
 
 const Home: NextPage = () => {
-  const [value, setValue] = useState<InputRadioGroupValue>(true)
-
-  const items = [
-    {
-      value: true,
-      label: 'はい',
-    },
-    {
-      value: false,
-      label: 'いいえ',
-    },
-  ]
   return (
     <>
       <Header />
@@ -41,13 +24,6 @@ const Home: NextPage = () => {
           </Typography>
         </Box>
       </Container>
-      <InputRadioGroup
-        value={value}
-        items={items}
-        onHandleChange={(propValue) => {
-          setValue(propValue)
-        }}
-      />
     </>
   )
 }
