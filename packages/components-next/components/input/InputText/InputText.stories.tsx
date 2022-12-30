@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { ChangeEvent, useState } from 'react'
 import { ComponentStory, ComponentMeta } from '@storybook/react'
 import { CurrencyYen } from '@mui/icons-material'
 
@@ -20,10 +20,10 @@ export default {
 
 const Template: ComponentStory<typeof InputText> = (args) => {
   const [text, setText] = useState<string>('')
-  const onChangeText = (value: string) => {
-    setText(value)
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setText(e.target.value)
   }
-  return <InputText {...args} value={text} onInputValue={onChangeText} />
+  return <InputText {...args} value={text} onChange={onChange} />
 }
 
 export const Base = Template.bind({})

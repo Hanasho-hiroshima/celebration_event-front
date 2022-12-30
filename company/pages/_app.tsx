@@ -13,6 +13,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { ConvertedToastContainer } from '~/components/ConvertedToaster'
 import { Provider } from 'react-redux'
 import { store } from '~/lib/redux/store'
+import { toast } from 'react-toastify'
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()
 
@@ -32,11 +33,19 @@ const queryClient = new QueryClient({
 export default function MyApp(props: MyAppProps) {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props
   React.useEffect(() => {
-    const getCsrfToken = async () => {
-      const { data } = await appAxios.get('/company/auth/csrf')
-      appAxios.defaults.headers.common['csrf-token'] = data.csrfToken
+    try {
+      const getCsrfToken = async () => {
+        const { data } = await appAxios.get('/company/auth/csrf')
+        appAxios.defaults.headers.common['csrf-token'] = data.csrfToken
+      }
+      getCsrfToken()
+    } catch (err) {
+      if (typeof err === 'string') {
+        toast.error(err)
+        return
+      }
+      throw err
     }
-    getCsrfToken()
   }, [])
   return (
     <>
