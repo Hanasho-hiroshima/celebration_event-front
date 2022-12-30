@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { ChangeEvent, useState } from 'react'
 import { ComponentStory, ComponentMeta } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 import { InputCheckGroup, InputCheckGroupProp } from './InputCheckGroup'
@@ -43,23 +43,23 @@ export default {
     items: ITEMS,
     itemLabelKey: 'label',
     itemValueKey: 'key',
-    onSelectValue: action('onSelectValue'),
+    onChange: action('onSelectValue'),
   }),
 } as ComponentMeta<typeof InputCheckGroup>
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 const Template: ComponentStory<typeof InputCheckGroup> = (args) => {
   const [values, setValues] = useState<(number | string)[]>([...args.value])
-  const onChange = (changeValue: number | string) => {
-    if (values.includes(changeValue)) {
-      setValues(values.filter((value) => value !== changeValue))
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (values.includes(e.target.value)) {
+      setValues(values.filter((value) => value !== e.target.value))
     } else {
       const copyValues = [...values]
-      copyValues.push(changeValue)
+      copyValues.push(e.target.value)
       setValues(copyValues)
     }
   }
-  return <InputCheckGroup {...args} value={values} onSelectValue={onChange} />
+  return <InputCheckGroup {...args} value={values} onChange={onChange} />
 }
 
 export const Base = Template.bind({})

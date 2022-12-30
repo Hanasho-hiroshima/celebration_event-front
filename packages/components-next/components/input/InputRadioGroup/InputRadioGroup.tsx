@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { ChangeEvent, FC } from 'react'
 import { DirectionType, DIRECTION_TYPE } from '@packs/constants/other'
 import Radio from '@mui/material/Radio'
 import RadioGroup from '@mui/material/RadioGroup'
@@ -23,6 +23,8 @@ export type InputRadioGroupProp = {
   readonly readonly?: boolean
   /** 変更関数 */
   readonly onHandleChange: (value: InputRadioGroupValue) => void
+  /** 変更イベント */
+  readonly onChange: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
 export const InputRadioGroup: FC<InputRadioGroupProp> = (props) => {
@@ -34,16 +36,12 @@ export const InputRadioGroup: FC<InputRadioGroupProp> = (props) => {
   const disabled = props.disabled || false
   const readonly = props.readonly || false
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    props.onHandleChange(event.target.value)
-  }
-
   return (
     <RadioGroup
       row={direction === DIRECTION_TYPE.Horizontal}
       value={value}
       aria-labelledby="demo-row-radio-buttons-group-label"
-      onChange={readonly ? undefined : handleChange}
+      onChange={readonly ? undefined : props.onChange}
       name="row-radio-buttons-group"
     >
       {items.map((item, index) => {
