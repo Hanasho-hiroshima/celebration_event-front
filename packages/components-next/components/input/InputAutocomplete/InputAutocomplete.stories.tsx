@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { ComponentStory, ComponentMeta } from '@storybook/react'
 import { InputAutocomplete } from './InputAutocomplete'
 import { action } from '@storybook/addon-actions'
@@ -65,19 +65,22 @@ export default {
   component: InputAutocomplete,
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   args: {
-    value: [{ ...ITEMS[0] }],
+    value: [],
     items: ITEMS,
     itemLabelKey: 'label',
     itemValueKey: 'key',
     multiple: true,
-    onSetItem: action('onSetItem'),
+    onChange: action('onSetItem'),
   },
 } as ComponentMeta<InputAutocompleteType>
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 const Template: ComponentStory<InputAutocompleteType> = (args) => {
   const [values, setValues] = useState(args.value)
-  return <InputAutocomplete {...args} value={values} onSetItem={setValues} />
+  const onChange = (e: any) => {
+    setValues(e)
+  }
+  return <InputAutocomplete {...args} value={values} onChange={onChange} />
 }
 
 export const Base = Template.bind({})

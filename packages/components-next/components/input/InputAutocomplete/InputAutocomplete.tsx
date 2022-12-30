@@ -5,6 +5,7 @@ import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank'
 import CheckBoxIcon from '@mui/icons-material/CheckBox'
 import CircularProgress from '@mui/material/CircularProgress'
 import Chip from '@mui/material/Chip'
+import { useState } from 'react'
 
 export type InputAutocompleteProp<T extends Record<string, any>> = {
   /** 入力された値 */
@@ -34,7 +35,7 @@ export type InputAutocompleteProp<T extends Record<string, any>> = {
   /** ハイライト */
   readonly autoHighlight?: boolean
   /** 更新関数 */
-  readonly onSetItem: (value: any) => void
+  readonly onChange: (e: any) => void
 }
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />
@@ -45,21 +46,52 @@ export const InputAutocomplete = <Item extends Record<string, any>>(
 ): JSX.Element => {
   const propOutlined = props.outlined || true
 
+  let initialSelectedItems: Item[] = []
+  let initialSelectedItem: Item | null = null
+  if (props.multiple) {
+    initialSelectedItems = props.items.filter((item) =>
+      props.value.includes(item[props.itemValueKey])
+    )
+  } else {
+    const selectedItem = props.items.find(
+      (item) => props.value === item[props.itemValueKey]
+    )
+    if (selectedItem != null) {
+      initialSelectedItem = selectedItem
+    }
+  }
+
+  const [selectedItems, setSelectedItems] =
+    useState<Item[]>(initialSelectedItems)
+  const [selectedItem, setSelectedItem] = useState<Item | null>(
+    initialSelectedItem
+  )
+
   return (
     <Autocomplete
-      value={props.value}
+      value={props.multiple ? selectedItems : selectedItem}
       multiple={props.multiple}
       options={props.items}
       readOnly={props.readonly}
       disabled={props.disabled}
       loading={props.loading}
       size={props.size === 'medium' ? 'medium' : 'small'}
-      onChange={(event, newValue): void => {
-        props.onSetItem(newValue)
+      onChange={(event, items: any): void => {
+        if (props.multiple) {
+          const keys = items.map((item: any) => item[props.itemValueKey])
+          props.onChange(keys)
+          setSelectedItems(items)
+        } else {
+          props.onChange(items[props.itemValueKey])
+          setSelectedItem(items)
+        }
       }}
       disableCloseOnSelect={props.multiple}
       getOptionLabel={(option): string => option[props.itemLabelKey]}
       getOptionDisabled={(option): boolean => option.disabled}
+      isOptionEqualToValue={(option, v) =>
+        option[props.itemValueKey] === v[props.itemValueKey]
+      }
       renderTags={
         props.fixedSelectedItem != null
           ? (tagValue, getTagProps): React.ReactNode =>

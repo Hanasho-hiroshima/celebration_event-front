@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ChangeEvent } from 'react'
 import { DirectionType, DIRECTION_TYPE } from '@packs/constants/other'
 import FormGroup from '@mui/material/FormGroup'
 import FormControlLabel from '@mui/material/FormControlLabel'
@@ -23,18 +23,14 @@ export type InputCheckGroupProp<Item extends Record<string, any>> = {
   readonly direction?: DirectionType
   /** サイズ */
   readonly size?: 'small' | 'medium'
-  /** チェック項目の選択時 */
-  readonly onSelectValue: (value: number | string) => void
+  /** 変更イベント */
+  readonly onChange: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
 export const InputCheckGroup = function <Item extends Record<string, any>>(
   props: InputCheckGroupProp<Item>
 ) {
   const propDirection = props.direction || DIRECTION_TYPE.Horizontal
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    props.onSelectValue(event.target.value)
-  }
 
   return (
     <FormGroup row={propDirection === DIRECTION_TYPE.Horizontal}>
@@ -48,7 +44,7 @@ export const InputCheckGroup = function <Item extends Record<string, any>>(
                 size={props.size}
                 required={props.required}
                 checked={props.value.includes(item[props.itemValueKey])}
-                onChange={props.readonly ? undefined : handleChange}
+                onChange={props.readonly ? undefined : props.onChange}
                 value={item[props.itemValueKey]}
               />
             }

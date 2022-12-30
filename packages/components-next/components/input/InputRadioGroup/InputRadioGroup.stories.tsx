@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { ChangeEvent, useState } from 'react'
 import { ComponentStory, ComponentMeta } from '@storybook/react'
 
 import { InputRadioGroup, InputRadioGroupValue } from './InputRadioGroup'
@@ -66,34 +66,28 @@ export default {
 const Template: ComponentStory<typeof InputRadioGroup> = (args) => {
   const [boolValue, setBoolValue] = useState<InputRadioGroupValue>(true)
 
-  const onChange = (changeValue: InputRadioGroupValue) => {
-    setBoolValue(changeValue)
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setBoolValue(e.target.value)
   }
-  return (
-    <InputRadioGroup {...args} value={boolValue} onHandleChange={onChange} />
-  )
+  return <InputRadioGroup {...args} value={boolValue} onChange={onChange} />
 }
 
 const StringTemplate: ComponentStory<typeof InputRadioGroup> = (args) => {
   const [stringValue, setStringValue] = useState<InputRadioGroupValue>('entry')
 
-  const onChange = (changeValue: InputRadioGroupValue) => {
-    setStringValue(changeValue)
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setStringValue(e.target.value)
   }
-  return (
-    <InputRadioGroup {...args} value={stringValue} onHandleChange={onChange} />
-  )
+  return <InputRadioGroup {...args} value={stringValue} onChange={onChange} />
 }
 
 const NumberTemplate: ComponentStory<typeof InputRadioGroup> = (args) => {
   const [numberValue, setNumberValue] = useState<InputRadioGroupValue>(1)
 
-  const onChange = (changeValue: InputRadioGroupValue) => {
-    setNumberValue(changeValue)
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setNumberValue(e.target.value)
   }
-  return (
-    <InputRadioGroup {...args} value={numberValue} onHandleChange={onChange} />
-  )
+  return <InputRadioGroup {...args} value={numberValue} onChange={onChange} />
 }
 
 export const Boolean = Template.bind({})
